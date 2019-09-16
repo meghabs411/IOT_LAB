@@ -1,0 +1,33 @@
+#include <Servo.h>
+Servo anyservo;
+
+int pos=0;
+int sensorPin = A0;
+int sensorValue =0;
+void setup()
+{
+  anyservo.attach(9);
+  Serial.begin(9600);
+}
+
+void loop()
+{
+  sensorValue = analogRead(sensorPin);
+  Serial.println(sensorValue);
+  Serial.println("soil moisture");
+  if(sensorValue > 300)
+  {
+    for(pos=0; pos <180; pos++)
+    {
+      anyservo.write(pos);
+      delay(15);
+    }
+    for(pos=180; pos>=0; pos--)
+    {
+      anyservo.write(pos);
+      delay(15);
+    }
+    
+  }
+  delay(1000);
+}
